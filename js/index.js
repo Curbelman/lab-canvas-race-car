@@ -63,7 +63,7 @@ window.onload = () => {
 
       update(){
         const ctx = canvas.context;
-        ctx.drawImage(this.img, newPos(), this.y, 100,100)
+        ctx.drawImage(this.img, this.x, this.y, 100,100)
       }
     }
 
