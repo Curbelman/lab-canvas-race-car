@@ -3,16 +3,30 @@ window.onload = () => {
     startGame();
   };
 
-  // canvas
-  const canvas = document.getElementById('canvas');
-  const ctx = canvas.getContext('2d');
+  //canvas
+   const canvas = document.getElementById('canvas');
+   const ctx = canvas.getContext('2d');
+
+  function startGame(){
+    backgroundImage.draw();
+    car.draw();
+    updateGame();
+  }
+
+  function updateGame(){
+    setInterval(() => {
+      clear();
+      backgroundImage.draw();
+      car.newPos();
+      car.draw();
+    }, 50)
+  }
 
   function clear(){
     canvas.ctx.clearRect(0,0,canvas.width,canvas.heigth);
   }
 
-
-  // background road image
+//   background road image
   const backgroundImg = new Image();
   backgroundImg.src = './images/road.png';
 
@@ -27,7 +41,7 @@ window.onload = () => {
     },
   }
 
-  // player car
+//   player car
   class Car {
     constructor(){
       this.x = (canvas.width - 100) / 2;
@@ -48,24 +62,35 @@ window.onload = () => {
       }
 
       update(){
-        ctx.drawImage(this.img, this.x ,this.y, 100, 100);
+        const ctx = canvas.context;
+        ctx.drawImage(this.img, newPos(), this.y, 100,100)
       }
+    }
+
+    const car = new Car();
   }
 
-  function updateGame(){
-    clear();
-    car.newPos();
-    backgroundImage.draw();
-    car.update();
-  }
+//       newPos(){
+//         this.x += this.speedX;
+//       }
 
-  const car = new Car();
+//       update(){
+//         ctx.drawImage(this.img, this.x ,this.y, 100, 100);
+//       }
+//   }
 
-  function startGame() {
-    backgroundImage.draw();
-    car.draw();
-    this.interval = setInterval(updateGame, 20)
-  }
+//   function updateGame(){
+//     clear();
+//     car.newPos();
+//     backgroundImage.draw();
+//     car.update();
+//   }
+
+//   function startGame() {
+//     backgroundImage.draw();
+//     car.draw();
+//     this.interval = setInterval(updateGame, 20)
+//   }
 
     document.addEventListener('keydown', e =>{
       switch (e.keycode){
@@ -82,10 +107,10 @@ window.onload = () => {
             this.speedX += 25;
           }
           else {
-            this.speedX = canvas.width - (this.x + 100)
+            this.speedX += canvas.width - (this.x + 100)
           }
           break;
       }
     })
 
-}
+// }
