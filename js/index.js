@@ -8,32 +8,43 @@ window.onload = () => {
   const ctx = canvas.getContext('2d');
 
   // background road image
-  const img = new Image();
-  img.src = './images/road.png';
+  const backgroundImg = new Image();
+  backgroundImg.src = './images/road.png';
 
   const backgroundImage = {
-    img: img,
+    img: backgroundImg,
     x:0,
     y: 0,
-    speed: +1,
-
-    move: function(){
-      this.y += this.speed;
-      this.y %= canvas.height;
-    },
+    speed: 1,
 
     draw: function(){
-      ctx.drawImage(this.img, this.x, this.y);
-      if (this.speed < 0) {
-        ctx.drawImage(this.img, this.y + canvas.height, 0);
-      } else {
-        ctx.drawImage(this.img, this.y - this.img.height, 0);
-      }
+      ctx.drawImage(this.img, this.x, this.y, 500, 700);
     },
   }
+
+  // player car
+  class Car {
+    constructor(){
+      this.x = (canvas.width - 100) / 2;
+      this.y = 575;
+
+      const carImg = new Image();
+      carImg.src = './images/car.png';
+      this.img = carImg;
+    }
+
+      draw(){
+        ctx.drawImage(this.img, this.x, this.y, 100,100);
+      }
+  }
+
+  const car = new Car();
+
+
  
 
 
   function startGame() {
     backgroundImage.draw();
+    car.draw();
 }}
